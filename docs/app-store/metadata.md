@@ -109,7 +109,16 @@ colors. Available in English and Ukrainian.
 ## Screenshot plan / matrix
 
 See `docs/LOCAL_QA_HANDOFF.md` section 10 for the exact screen list and
-device/appearance matrix to capture locally once a Simulator is available.
+device/appearance matrix.
+
+Captured so far, under `docs/app-store/screenshots/iphone17-6.3in-en-light/`
+(Home, Result PASS, Result FAIL, History, Settings — Light appearance, Teal
+accent, English, on the iPhone 17 Simulator, iOS 26.5): a QA-verified preview
+set, **not** yet the official App Store Connect submission sizes. App Store
+Connect requires screenshots at specific display-size classes (currently
+6.9" and 6.5", plus 5.5" if targeting older devices) — recapture this same
+matrix on an iPhone 17 Pro Max (6.9") and, if supporting smaller phones, a
+5.5"-class device/simulator before uploading.
 
 ## Icon checklist
 
@@ -119,12 +128,13 @@ device/appearance matrix to capture locally once a Simulator is available.
       appiconset (`Contents.json`), relying on Xcode 14+/iOS 17+ automatic
       icon generation from the 1024×1024 source — confirm this renders
       correctly for all required sizes once opened in Xcode locally.
-- [ ] Visually reviewed in Xcode's asset catalog editor on a real Mac (not
-      done in this sandbox — no image rendering/preview tooling available
-      beyond the generation script itself).
-- [ ] Confirmed no alpha channel / transparency issues for App Store upload
-      (`ASSETCATALOG_COMPILER_APPICON_NAME` build setting must point to
-      `AppIcon`).
+- [x] Visually reviewed at actual Home Screen render sizes (1024, 180, 120,
+      58px) on a real Mac: clean checkmark-in-circle + barcode mark on a
+      teal gradient, legible and distinct down to the smallest (Settings)
+      size. Accepted as release-quality, not a placeholder.
+- [x] Confirmed no alpha channel (`sips -g hasAlpha` → `no`) and
+      `ASSETCATALOG_COMPILER_APPICON_NAME` = `AppIcon` is set in
+      `project.yml`/build settings.
 
 ## Submission checklist
 

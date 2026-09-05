@@ -19,6 +19,7 @@ struct ScannerView: View {
     @State private var errorMessage: String?
     @State private var validationResult: ValidationResult?
     @State private var lastScan: ExtractedLabelData?
+    @State private var showingLiveScanner = false
 
     var body: some View {
         NavigationStack {
@@ -39,6 +40,15 @@ struct ScannerView: View {
                     Text("scanner.cameraNote")
                         .font(.footnote)
                         .foregroundStyle(.secondary)
+                    Button {
+                        showingLiveScanner = true
+                    } label: {
+                        Label(String(localized: "scanner.scanWithCamera"), systemImage: "camera.viewfinder")
+                            .frame(maxWidth: .infinity)
+                            .padding()
+                    }
+                    .buttonStyle(.bordered)
+                    .accessibilityIdentifier("scanner.liveCameraButton")
                 } else {
                     Text("scanner.cameraUnavailable")
                         .font(.footnote)
@@ -91,8 +101,30 @@ struct ScannerView: View {
                     ResultView(goldenLabel: goldenLabel, scan: lastScan, result: result)
                 }
             }
+            #if canImport(VisionKit) && canImport(UIKit)
+            .fullScreenCover(isPresented: $showingLiveScanner) {
+                LiveScannerSheet(
+                    onUseScan: { textLines, barcodes in
+                        showingLiveScanner = false
+                        Task { await runLiveScan(textLines: textLines, barcodes: barcodes) }
+                    },
+                    onError: { message in
+                        showingLiveScanner = false
+                        errorMessage = message
+                    },
+                    onCancel: { showingLiveScanner = false }
+                )
+            }
+            #endif
         }
     }
+
+    #if canImport(VisionKit) && canImport(UIKit)
+    private func runLiveScan(textLines: [String], barcodes: [LabelProofCore.BarcodeObservation]) async {
+        let scanResult = ExtractedLabelData(rawTextLines: textLines, barcodes: barcodes, source: .liveCamera)
+        await runScan(imageData: Data(), source: .liveCamera, precomputedResult: scanResult)
+    }
+    #endif
 
     private func handlePickedPhoto(_ item: PhotosPickerItem) async {
         do {
@@ -106,12 +138,13 @@ struct ScannerView: View {
         }
     }
 
-    private func runScan(imageData: Data, source: ScanSourceType) async {
+    private func runScan(imageData: Data, source: ScanSourceType, precomputedResult: ExtractedLabelData? = nil) async {
         isProcessing = true
         errorMessage = nil
         defer { isProcessing = false }
 
-        let service = ScanServiceFactory.makeScanService(goldenLabel: goldenLabel)
+        let service: LabelScanServicing = precomputedResult.map { FixtureLabelScanService(result: $0) }
+            ?? ScanServiceFactory.makeScanService(goldenLabel: goldenLabel)
         do {
             let scan = try await service.scan(imageData: imageData, source: source)
             let result = LabelValidator.validate(scan: scan, against: goldenLabel)

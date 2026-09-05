@@ -41,6 +41,10 @@
 "scanner.instructions" = "Scan the package with the camera, or import a photo.";
 "scanner.cameraNote" = "Point the camera at the label. Recognized text and barcodes are processed entirely on-device.";
 "scanner.cameraUnavailable" = "Live camera scanning isn't available on this device/simulator. Use Import Photo instead.";
+"scanner.scanWithCamera" = "Scan with Camera";
+"scanner.live.pointAtLabel" = "Point the camera at the label";
+"scanner.live.readyToUse" = "Label recognized — tap Use Scan";
+"scanner.live.useScan" = "Use Scan";
 "scanner.importImage" = "Import Photo";
 "scanner.processing" = "Analyzing label…";
 "scanner.errorLoadingImage" = "Couldn't load that image. Please try another.";
