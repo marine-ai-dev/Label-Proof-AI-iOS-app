@@ -1,0 +1,53 @@
+name: CI
+
+# NOTE: This workflow has not yet had a real run in this repository — it was
+# authored in a cloud sandbox without macOS/Xcode/simulator access. The first
+# push to a branch that triggers it will be its first real execution; see
+# docs/LOCAL_QA_HANDOFF.md for what to verify locally in the meantime.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  swift-package-tests:
+    name: Swift Package (Core) build & test
+    runs-on: macos-14
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Select Xcode
+        run: sudo xcode-select -s /Applications/Xcode_15.4.app/Contents/Developer || true
+
+      - name: Swift version
+        run: swift --version
+
+      - name: Build LabelProofCore
+        run: swift build --package-path . -v
+
+      - name: Test LabelProofCore
+        run: swift test --package-path . -v
+
+  secret-scan:
+    name: Basic secret scan
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Scan for obvious secrets
+        run: |
+          set -e
+          if grep -R -n -E "(api[_-]?key|secret|password|token)\s*=\s*['\"][A-Za-z0-9/+=_-]{12,}['\"]" \
+            --include="*.swift" --include="*.plist" --include="*.json" --include="*.yml" . ; then
+            echo "Potential secret found. Failing build."
+            exit 1
+          fi
+          echo "No obvious secrets found."
+
+  # The Xcode app target (App/LabelProof) requires an .xcodeproj generated
+  # locally (e.g. via xcodegen or manual Xcode project creation — see
+  # docs/LOCAL_QA_HANDOFF.md). Once a project file is committed, add a job
+  # here running `xcodebuild -scheme LabelProof -destination "platform=iOS
+  # Simulator,name=iPhone 15" build test`.

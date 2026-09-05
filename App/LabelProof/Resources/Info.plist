@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>CFBundleDisplayName</key>
+	<string>LabelProof</string>
+	<key>CFBundleShortVersionString</key>
+	<string>1.0</string>
+	<key>CFBundleVersion</key>
+	<string>1</string>
+
+	<!-- Camera is used ONLY for live label scanning via VisionKit's
+	     DataScannerViewController; no photos/video are ever uploaded or
+	     stored beyond the scan session unless the user imports an image via
+	     PhotosPicker (which uses the system picker, not raw photo-library
+	     access, so no separate photo-library usage description is needed). -->
+	<key>NSCameraUsageDescription</key>
+	<string>LabelProof uses the camera to scan packaging labels on-device for verification. No images are uploaded or shared.</string>
+
+	<key>UILaunchScreen</key>
+	<dict/>
+	<key>UISupportedInterfaceOrientations</key>
+	<array>
+		<string>UIInterfaceOrientationPortrait</string>
+	</array>
+	<key>UIRequiredDeviceCapabilities</key>
+	<array>
+		<string>arm64</string>
+	</array>
+	<key>ITSAppUsesNonExemptEncryption</key>
+	<false/>
+</dict>
+</plist>

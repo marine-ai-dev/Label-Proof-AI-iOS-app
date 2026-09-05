@@ -1,0 +1,103 @@
+/* LabelProof — English (base) localization.
+   See docs/ARCHITECTURE.md "Localization" for the LocalizationKit gap note.
+   Never add ru / be / fa-IR locales to this project. */
+
+"tab.home" = "Home";
+"tab.goldenLabels" = "Golden Labels";
+"tab.history" = "History";
+"tab.settings" = "Settings";
+
+"home.title" = "LabelProof";
+"home.welcomeTitle" = "Verify a package label";
+"home.welcomeSubtitle" = "Pick a golden label below, then scan or import a photo of the package to check it on-device.";
+"home.pickGoldenLabel" = "Golden labels";
+"home.emptyTitle" = "No golden labels yet";
+"home.emptySubtitle" = "Add a golden label in the Golden Labels tab to start verifying packages.";
+"home.scanAccessibilityLabel %@" = "Scan against %@";
+
+"goldenLabels.title" = "Golden Labels";
+"goldenLabels.add" = "Add";
+"goldenLabels.emptyTitle" = "No golden labels";
+"goldenLabels.emptySubtitle" = "Create a golden label with the expected product name, weight, barcode, and required phrases.";
+
+"goldenLabelForm.section.identity" = "Identity";
+"goldenLabelForm.name" = "Name";
+"goldenLabelForm.expectedProductName" = "Expected product name";
+"goldenLabelForm.section.values" = "Expected values";
+"goldenLabelForm.expectedWeight" = "Expected weight / quantity";
+"goldenLabelForm.expectedBarcode" = "Expected barcode";
+"goldenLabelForm.section.requiredPhrases" = "Required phrases";
+"goldenLabelForm.newPhrase" = "New required phrase";
+"goldenLabelForm.section.notes" = "Notes";
+"goldenLabelForm.notes" = "Notes";
+"goldenLabelForm.createTitle" = "New Golden Label";
+"goldenLabelForm.editTitle" = "Edit Golden Label";
+
+"action.cancel" = "Cancel";
+"action.save" = "Save";
+
+"scanner.title" = "Scan Label";
+"scanner.targetLabel %@" = "Verifying against: %@";
+"scanner.instructions" = "Scan the package with the camera, or import a photo.";
+"scanner.cameraNote" = "Point the camera at the label. Recognized text and barcodes are processed entirely on-device.";
+"scanner.cameraUnavailable" = "Live camera scanning isn't available on this device/simulator. Use Import Photo instead.";
+"scanner.importImage" = "Import Photo";
+"scanner.processing" = "Analyzing label…";
+"scanner.errorLoadingImage" = "Couldn't load that image. Please try another.";
+"scanner.errorScanFailed" = "Scan failed. Please try again.";
+
+"result.title" = "Verification Result";
+"result.status.pass" = "PASS — Label matches";
+"result.status.fail" = "FAIL — Mismatches found";
+"result.status.insufficientData" = "Insufficient data — try rescanning";
+"result.mismatchesTitle" = "Mismatches";
+"result.expected %@" = "Expected: %@";
+"result.actual %@" = "Found: %@";
+"result.notFound" = "Not found";
+"result.rawScanTitle" = "Raw recognized text";
+"result.noTextRecognized" = "No text recognized.";
+"result.field.productName" = "Product name";
+"result.field.weight" = "Weight / quantity";
+"result.field.barcode" = "Barcode";
+"result.field.requiredPhrase" = "Required phrase";
+
+"history.title" = "History";
+"history.emptyTitle" = "No verifications yet";
+"history.emptySubtitle" = "Scanned labels will appear here.";
+
+"settings.title" = "Settings";
+"settings.section.appearance" = "Appearance";
+"settings.appearance" = "Appearance";
+"settings.appearance.system" = "System";
+"settings.appearance.light" = "Light";
+"settings.appearance.dark" = "Dark";
+"settings.appearance.black" = "Black";
+"settings.accent" = "Accent color";
+"settings.accent.teal" = "Teal";
+"settings.accent.indigo" = "Indigo";
+"settings.accent.coral" = "Coral";
+"settings.accent.mint" = "Mint";
+"settings.accent.amber" = "Amber";
+"settings.section.history" = "History";
+"settings.keepHistoryDays %@" = "Keep history: %@";
+"settings.forever" = "Forever";
+"settings.clearHistory" = "Clear All History";
+"settings.clearHistoryConfirmTitle" = "Clear all verification history?";
+"settings.clearHistoryConfirmAction" = "Clear History";
+"settings.section.demo" = "Demo Data";
+"settings.resetDemoData" = "Reset Demo Data";
+"settings.resetDemoConfirmTitle" = "Replace all golden labels and history with fictional demo data?";
+"settings.resetDemoConfirmAction" = "Reset";
+"settings.about" = "About & Privacy";
+
+"about.title" = "About";
+"about.appName" = "LabelProof";
+"about.tagline" = "On-device packaging label verifier.";
+"about.privacyTitle" = "Privacy";
+"about.privacyBody" = "LabelProof never sends data off your device. No account, no login, no analytics, no cloud OCR. All scanning, recognition, and storage happen locally using Apple's Vision and SwiftData frameworks.";
+"about.howItWorksTitle" = "How it works";
+"about.howItWorksBody" = "Create a golden label with the expected product name, weight, barcode, and required phrases. Scan a package, and LabelProof compares the recognized text and barcode against your golden label using deterministic rules — never AI guessing.";
+"about.limitationsTitle" = "Limitations";
+"about.limitationsBody" = "Recognition quality depends on lighting, focus, and print clarity. When recognition doesn't produce usable text or barcode data, LabelProof reports \"Insufficient data\" rather than guessing at a pass or fail.";
+"about.openSourceTitle" = "Open source";
+"about.openSourceBody" = "LabelProof is free and open-source. See the project README for the repository link and license.";

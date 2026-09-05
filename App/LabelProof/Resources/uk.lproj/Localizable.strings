@@ -1,0 +1,102 @@
+/* LabelProof — Ukrainian localization.
+   See docs/ARCHITECTURE.md "Localization" for the LocalizationKit gap note. */
+
+"tab.home" = "Головна";
+"tab.goldenLabels" = "Еталонні етикетки";
+"tab.history" = "Історія";
+"tab.settings" = "Налаштування";
+
+"home.title" = "LabelProof";
+"home.welcomeTitle" = "Перевірте етикетку упаковки";
+"home.welcomeSubtitle" = "Оберіть еталонну етикетку нижче, потім відскануйте або імпортуйте фото упаковки для перевірки на пристрої.";
+"home.pickGoldenLabel" = "Еталонні етикетки";
+"home.emptyTitle" = "Ще немає еталонних етикеток";
+"home.emptySubtitle" = "Додайте еталонну етикетку на вкладці «Еталонні етикетки», щоб почати перевірку.";
+"home.scanAccessibilityLabel %@" = "Сканувати з %@";
+
+"goldenLabels.title" = "Еталонні етикетки";
+"goldenLabels.add" = "Додати";
+"goldenLabels.emptyTitle" = "Немає еталонних етикеток";
+"goldenLabels.emptySubtitle" = "Створіть еталонну етикетку з очікуваною назвою товару, вагою, штрих-кодом та обов'язковими фразами.";
+
+"goldenLabelForm.section.identity" = "Основне";
+"goldenLabelForm.name" = "Назва";
+"goldenLabelForm.expectedProductName" = "Очікувана назва товару";
+"goldenLabelForm.section.values" = "Очікувані значення";
+"goldenLabelForm.expectedWeight" = "Очікувана вага / кількість";
+"goldenLabelForm.expectedBarcode" = "Очікуваний штрих-код";
+"goldenLabelForm.section.requiredPhrases" = "Обов'язкові фрази";
+"goldenLabelForm.newPhrase" = "Нова обов'язкова фраза";
+"goldenLabelForm.section.notes" = "Примітки";
+"goldenLabelForm.notes" = "Примітки";
+"goldenLabelForm.createTitle" = "Нова еталонна етикетка";
+"goldenLabelForm.editTitle" = "Редагувати еталонну етикетку";
+
+"action.cancel" = "Скасувати";
+"action.save" = "Зберегти";
+
+"scanner.title" = "Сканування етикетки";
+"scanner.targetLabel %@" = "Перевірка відносно: %@";
+"scanner.instructions" = "Відскануйте упаковку камерою або імпортуйте фото.";
+"scanner.cameraNote" = "Наведіть камеру на етикетку. Розпізнавання тексту та штрих-кодів відбувається повністю на пристрої.";
+"scanner.cameraUnavailable" = "Сканування камерою наживо недоступне на цьому пристрої/симуляторі. Скористайтеся імпортом фото.";
+"scanner.importImage" = "Імпортувати фото";
+"scanner.processing" = "Аналіз етикетки…";
+"scanner.errorLoadingImage" = "Не вдалося завантажити це зображення. Спробуйте інше.";
+"scanner.errorScanFailed" = "Не вдалося виконати сканування. Спробуйте ще раз.";
+
+"result.title" = "Результат перевірки";
+"result.status.pass" = "ПРОЙДЕНО — етикетка відповідає";
+"result.status.fail" = "НЕ ПРОЙДЕНО — знайдено розбіжності";
+"result.status.insufficientData" = "Недостатньо даних — спробуйте сканувати ще раз";
+"result.mismatchesTitle" = "Розбіжності";
+"result.expected %@" = "Очікувалося: %@";
+"result.actual %@" = "Знайдено: %@";
+"result.notFound" = "Не знайдено";
+"result.rawScanTitle" = "Розпізнаний текст";
+"result.noTextRecognized" = "Текст не розпізнано.";
+"result.field.productName" = "Назва товару";
+"result.field.weight" = "Вага / кількість";
+"result.field.barcode" = "Штрих-код";
+"result.field.requiredPhrase" = "Обов'язкова фраза";
+
+"history.title" = "Історія";
+"history.emptyTitle" = "Ще немає перевірок";
+"history.emptySubtitle" = "Відскановані етикетки з'являться тут.";
+
+"settings.title" = "Налаштування";
+"settings.section.appearance" = "Вигляд";
+"settings.appearance" = "Вигляд";
+"settings.appearance.system" = "Системний";
+"settings.appearance.light" = "Світлий";
+"settings.appearance.dark" = "Темний";
+"settings.appearance.black" = "Чорний";
+"settings.accent" = "Акцентний колір";
+"settings.accent.teal" = "Бірюзовий";
+"settings.accent.indigo" = "Індиго";
+"settings.accent.coral" = "Кораловий";
+"settings.accent.mint" = "М'ятний";
+"settings.accent.amber" = "Бурштиновий";
+"settings.section.history" = "Історія";
+"settings.keepHistoryDays %@" = "Зберігати історію: %@";
+"settings.forever" = "Завжди";
+"settings.clearHistory" = "Очистити всю історію";
+"settings.clearHistoryConfirmTitle" = "Очистити всю історію перевірок?";
+"settings.clearHistoryConfirmAction" = "Очистити";
+"settings.section.demo" = "Демо-дані";
+"settings.resetDemoData" = "Скинути демо-дані";
+"settings.resetDemoConfirmTitle" = "Замінити всі еталонні етикетки та історію вигаданими демо-даними?";
+"settings.resetDemoConfirmAction" = "Скинути";
+"settings.about" = "Про застосунок і приватність";
+
+"about.title" = "Про застосунок";
+"about.appName" = "LabelProof";
+"about.tagline" = "Перевірка етикеток упаковки на пристрої.";
+"about.privacyTitle" = "Приватність";
+"about.privacyBody" = "LabelProof ніколи не передає дані за межі вашого пристрою. Без облікового запису, без входу, без аналітики, без хмарного розпізнавання. Усе сканування, розпізнавання та зберігання відбувається локально за допомогою фреймворків Apple Vision і SwiftData.";
+"about.howItWorksTitle" = "Як це працює";
+"about.howItWorksBody" = "Створіть еталонну етикетку з очікуваною назвою товару, вагою, штрих-кодом та обов'язковими фразами. Відскануйте упаковку — LabelProof порівняє розпізнаний текст і штрих-код з еталонною етикеткою за детермінованими правилами, без вгадувань ШІ.";
+"about.limitationsTitle" = "Обмеження";
+"about.limitationsBody" = "Якість розпізнавання залежить від освітлення, фокусу та чіткості друку. Якщо розпізнавання не дає придатних даних, LabelProof повідомляє «Недостатньо даних», а не вгадує результат.";
+"about.openSourceTitle" = "Відкритий код";
+"about.openSourceBody" = "LabelProof — безкоштовний застосунок із відкритим кодом. Посилання на репозиторій та ліцензію дивіться у README проєкту.";
