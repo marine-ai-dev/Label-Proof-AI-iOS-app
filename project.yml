@@ -1,0 +1,32 @@
+name: LabelProof
+options:
+  bundleIdPrefix: com.labelproof
+targets:
+  LabelProof:
+    type: application
+    platform: iOS
+    deploymentTarget: "17.0"
+    sources: [App/LabelProof]
+    settings:
+      base:
+        PRODUCT_BUNDLE_IDENTIFIER: com.labelproof.app
+        SWIFT_VERSION: "5.9"
+        TARGETED_DEVICE_FAMILY: "1"
+        ASSETCATALOG_COMPILER_APPICON_NAME: AppIcon
+        INFOPLIST_FILE: App/LabelProof/Resources/Info.plist
+        GENERATE_INFOPLIST_FILE: YES
+    dependencies:
+      - package: LabelProofCore
+  LabelProofUITests:
+    type: bundle.ui-testing
+    platform: iOS
+    deploymentTarget: "17.0"
+    sources: [AppUITests]
+    settings:
+      base:
+        GENERATE_INFOPLIST_FILE: YES
+    dependencies:
+      - target: LabelProof
+packages:
+  LabelProofCore:
+    path: .

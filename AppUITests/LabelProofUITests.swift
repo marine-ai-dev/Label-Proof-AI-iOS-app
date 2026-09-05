@@ -49,7 +49,7 @@ final class LabelProofUITests: XCTestCase {
         firstGoldenLabelCell.tap()
         // The fixture-injected scan runs automatically in UITEST_MODE with a
         // forced scenario (see ScannerView.task), producing a result screen.
-        XCTAssertTrue(app.otherElements["result.statusBanner.pass"].waitForExistence(timeout: 5))
+        XCTAssertTrue(app.descendants(matching: .any)["result.statusBanner.pass"].waitForExistence(timeout: 5))
     }
 
     func testWrongBarcodeScanShowsFailResultWithMismatch() {
@@ -61,7 +61,7 @@ final class LabelProofUITests: XCTestCase {
             return
         }
         firstGoldenLabelCell.tap()
-        XCTAssertTrue(app.otherElements["result.statusBanner.fail"].waitForExistence(timeout: 5))
+        XCTAssertTrue(app.descendants(matching: .any)["result.statusBanner.fail"].waitForExistence(timeout: 5))
     }
 
     func testEmptyRecognitionShowsInsufficientData() {
@@ -73,7 +73,7 @@ final class LabelProofUITests: XCTestCase {
             return
         }
         firstGoldenLabelCell.tap()
-        XCTAssertTrue(app.otherElements["result.statusBanner.insufficientData"].waitForExistence(timeout: 5))
+        XCTAssertTrue(app.descendants(matching: .any)["result.statusBanner.insufficientData"].waitForExistence(timeout: 5))
     }
 
     func testSettingsAppearancePickerExists() {

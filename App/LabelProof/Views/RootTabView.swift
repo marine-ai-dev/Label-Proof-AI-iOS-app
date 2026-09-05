@@ -9,20 +9,16 @@ struct RootTabView: View {
     var body: some View {
         TabView {
             HomeView()
-                .tabItem { Label(String(localized: "tab.home"), systemImage: "house.fill") }
-                .accessibilityIdentifier("tab.home")
+                .tabItem { Label(String(localized: "tab.home"), systemImage: "house.fill").accessibilityIdentifier("tab.home") }
 
             GoldenLabelsListView()
-                .tabItem { Label(String(localized: "tab.goldenLabels"), systemImage: "checkmark.seal.fill") }
-                .accessibilityIdentifier("tab.goldenLabels")
+                .tabItem { Label(String(localized: "tab.goldenLabels"), systemImage: "checkmark.seal.fill").accessibilityIdentifier("tab.goldenLabels") }
 
             HistoryView()
-                .tabItem { Label(String(localized: "tab.history"), systemImage: "clock.fill") }
-                .accessibilityIdentifier("tab.history")
+                .tabItem { Label(String(localized: "tab.history"), systemImage: "clock.fill").accessibilityIdentifier("tab.history") }
 
             SettingsView()
-                .tabItem { Label(String(localized: "tab.settings"), systemImage: "gearshape.fill") }
-                .accessibilityIdentifier("tab.settings")
+                .tabItem { Label(String(localized: "tab.settings"), systemImage: "gearshape.fill").accessibilityIdentifier("tab.settings") }
         }
         .environmentObject(settings)
         .appThemeRoot(theme)

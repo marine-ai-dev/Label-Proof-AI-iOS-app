@@ -5,7 +5,6 @@ import LabelProofCore
 struct HomeView: View {
     @Environment(\.modelContext) private var modelContext
     @State private var goldenLabels: [GoldenLabel] = []
-    @State private var showingScanner = false
     @State private var selectedGoldenLabel: GoldenLabel?
 
     var body: some View {
@@ -34,7 +33,6 @@ struct HomeView: View {
                         ForEach(goldenLabels) { goldenLabel in
                             Button {
                                 selectedGoldenLabel = goldenLabel
-                                showingScanner = true
                             } label: {
                                 GlassCard {
                                     HStack {
@@ -61,10 +59,8 @@ struct HomeView: View {
             .navigationTitle(String(localized: "home.title"))
             .background(homeBackground)
             .onAppear(perform: reload)
-            .sheet(isPresented: $showingScanner) {
-                if let selectedGoldenLabel {
-                    ScannerView(goldenLabel: selectedGoldenLabel)
-                }
+            .sheet(item: $selectedGoldenLabel) { goldenLabel in
+                ScannerView(goldenLabel: goldenLabel)
             }
         }
     }

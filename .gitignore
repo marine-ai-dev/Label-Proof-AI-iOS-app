@@ -38,3 +38,6 @@ Carthage/Build/
 # Generated Xcode project (create locally via xcodegen; see docs/LOCAL_QA_HANDOFF.md)
 *.xcodeproj/
 *.xcworkspace/
+
+# Local QA screenshots (see docs/LOCAL_QA_HANDOFF.md step 10)
+/screenshots/

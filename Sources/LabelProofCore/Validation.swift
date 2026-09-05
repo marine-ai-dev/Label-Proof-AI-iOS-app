@@ -31,7 +31,7 @@ public enum MismatchReason: String, Codable, Sendable {
 }
 
 /// A single field-level mismatch between the scan and the golden label.
-public struct LabelMismatch: Codable, Equatable, Sendable, Identifiable {
+public struct LabelMismatch: Codable, Equatable, Hashable, Sendable, Identifiable {
     public var id: UUID
     public var field: LabelField
     /// Human-readable expected value (already the "golden" source of truth).
@@ -62,7 +62,7 @@ public struct LabelMismatch: Codable, Equatable, Sendable, Identifiable {
 /// The result of a single validation rule (used internally and exposed for
 /// detailed reporting/testing of individual rules, independent of the
 /// aggregate `ValidationResult`).
-public struct ValidationRuleResult: Codable, Equatable, Sendable {
+public struct ValidationRuleResult: Codable, Equatable, Hashable, Sendable {
     public var field: LabelField
     public var passed: Bool
     public var mismatch: LabelMismatch?
@@ -76,7 +76,7 @@ public struct ValidationRuleResult: Codable, Equatable, Sendable {
 
 /// The full result of verifying one `ExtractedLabelData` scan against one
 /// `GoldenLabel`.
-public struct ValidationResult: Codable, Equatable, Sendable {
+public struct ValidationResult: Codable, Equatable, Hashable, Sendable {
     public var status: VerificationStatus
     public var goldenLabelID: UUID
     public var ruleResults: [ValidationRuleResult]

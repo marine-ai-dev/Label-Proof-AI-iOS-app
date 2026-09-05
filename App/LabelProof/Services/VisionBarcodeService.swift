@@ -9,7 +9,7 @@ import UIKit
 /// `VNDetectBarcodesRequest`. Entirely on-device. Structurally correct but
 /// NOT executed/verified in this cloud sandbox; see docs/LOCAL_QA_HANDOFF.md.
 struct VisionBarcodeService: BarcodeServicing {
-    func recognizeBarcodes(imageData: Data) async throws -> [BarcodeObservation] {
+    func recognizeBarcodes(imageData: Data) async throws -> [LabelProofCore.BarcodeObservation] {
         guard let image = UIImage(data: imageData), let cgImage = image.cgImage else {
             throw ScanServiceError.underlying("Could not decode image data")
         }
@@ -21,9 +21,9 @@ struct VisionBarcodeService: BarcodeServicing {
                     return
                 }
                 let observations = request.results as? [VNBarcodeObservation] ?? []
-                let barcodes = observations.compactMap { observation -> BarcodeObservation? in
+                let barcodes = observations.compactMap { observation -> LabelProofCore.BarcodeObservation? in
                     guard let payload = observation.payloadStringValue else { return nil }
-                    return BarcodeObservation(payload: payload, symbology: observation.symbology.rawValue)
+                    return LabelProofCore.BarcodeObservation(payload: payload, symbology: observation.symbology.rawValue)
                 }
                 // Deduplication happens again inside ExtractedLabelData's
                 // initializer, but we also dedupe here to keep this service's
