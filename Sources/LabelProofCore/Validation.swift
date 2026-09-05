@@ -161,11 +161,21 @@ public enum LabelValidator {
             return ValidationRuleResult(field: .weight, passed: true)
         }
         let expected = TextNormalizer.normalizeWeight(goldenLabel.expectedWeight)
-        // Search token-by-token: normalize each line's whitespace-normalized
-        // form the same way and check for containment, since weight often
-        // appears as an isolated token/line on real packaging.
-        let normalizedFullTextForWeight = TextNormalizer.normalizeWeight(scan.rawTextLines.joined(separator: " "))
-        if normalizedFullTextForWeight.contains(expected) {
+        // Compare whole tokens, not a raw substring search: a blind
+        // `.contains` on the joined scan text would let expected "50g"
+        // spuriously match inside an unrelated "150g"/"250g" elsewhere on
+        // the scan, producing a false PASS. Instead build the set of
+        // candidate weight tokens from the scan: each individual word, plus
+        // each adjacent word pair merged the same way `normalizeWeight`
+        // merges "500 g" -> "500g" (OCR often reports the numeric value and
+        // unit as separate words), and require an exact match against one
+        // of those candidates.
+        let words = scan.rawTextLines.joined(separator: " ").split(separator: " ").map(String.init)
+        var candidates = words.map { TextNormalizer.normalizeWeight($0) }
+        for index in 0..<max(words.count - 1, 0) {
+            candidates.append(TextNormalizer.normalizeWeight(words[index] + " " + words[index + 1]))
+        }
+        if candidates.contains(expected) {
             return ValidationRuleResult(field: .weight, passed: true)
         }
         let mismatch = LabelMismatch(

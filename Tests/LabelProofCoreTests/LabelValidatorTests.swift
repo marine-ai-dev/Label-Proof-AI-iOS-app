@@ -28,6 +28,21 @@ final class LabelValidatorTests: XCTestCase {
         XCTAssertFalse(result.mismatches.contains { $0.field == .weight })
     }
 
+    /// Regression test: weight matching must compare whole tokens, not do a
+    /// raw substring search. A golden label expecting "500 g" must NOT pass
+    /// just because the scanned text contains an unrelated "1500 g" or
+    /// "2500 g" elsewhere on the label — that would be a false PASS, which
+    /// is strictly worse than a false FAIL for this product.
+    func testWeightDoesNotFalsePositiveOnSubstringOfLargerNumber() {
+        let scan = ExtractedLabelData(
+            rawTextLines: ["Sunrise Rolled Oats", "Net weight 1500 g", "Serving size 2500 g"],
+            barcodes: [BarcodeObservation(payload: "5901234123457", symbology: "ean13")],
+            source: .fixture
+        )
+        let result = LabelValidator.validate(scan: scan, against: goldenLabel)
+        XCTAssertTrue(result.mismatches.contains { $0.field == .weight && $0.reason == .valueMismatch })
+    }
+
     func testWrongProductNameFails() {
         let scan = ScanFixtureScenario.wrongProductName.extractedLabelData(for: goldenLabel)
         let result = LabelValidator.validate(scan: scan, against: goldenLabel)
