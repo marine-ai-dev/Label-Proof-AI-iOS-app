@@ -27,6 +27,7 @@
 "goldenLabelForm.expectedBarcode" = "Очікуваний штрих-код";
 "goldenLabelForm.section.requiredPhrases" = "Обов'язкові фрази";
 "goldenLabelForm.newPhrase" = "Нова обов'язкова фраза";
+"goldenLabelForm.addPhrase" = "Додати фразу";
 "goldenLabelForm.section.notes" = "Примітки";
 "goldenLabelForm.notes" = "Примітки";
 "goldenLabelForm.createTitle" = "Нова еталонна етикетка";
@@ -67,6 +68,7 @@
 "history.title" = "Історія";
 "history.emptyTitle" = "Ще немає перевірок";
 "history.emptySubtitle" = "Відскановані етикетки з'являться тут.";
+"history.rowAccessibilityLabel %@ %@ %@" = "%1$@, %2$@, %3$@";
 
 "settings.title" = "Налаштування";
 "settings.section.appearance" = "Вигляд";

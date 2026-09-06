@@ -28,6 +28,8 @@ struct HistoryView: View {
                                         .foregroundStyle(.secondary)
                                 }
                             }
+                            .accessibilityElement(children: .combine)
+                            .accessibilityLabel(Text("history.rowAccessibilityLabel \(statusTitle(for: record.result.status)) \(record.goldenLabelNameSnapshot) \(record.createdAt.formatted(date: .abbreviated, time: .shortened))"))
                             .accessibilityIdentifier("history.row.\(record.id.uuidString)")
                         }
                         .onDelete(perform: delete)
@@ -64,6 +66,14 @@ struct HistoryView: View {
         case .pass: return .green
         case .fail: return .red
         case .insufficientData: return .orange
+        }
+    }
+
+    private func statusTitle(for status: VerificationStatus) -> String {
+        switch status {
+        case .pass: return String(localized: "result.status.pass")
+        case .fail: return String(localized: "result.status.fail")
+        case .insufficientData: return String(localized: "result.status.insufficientData")
         }
     }
 }

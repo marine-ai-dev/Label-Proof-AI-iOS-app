@@ -28,6 +28,7 @@
 "goldenLabelForm.expectedBarcode" = "Expected barcode";
 "goldenLabelForm.section.requiredPhrases" = "Required phrases";
 "goldenLabelForm.newPhrase" = "New required phrase";
+"goldenLabelForm.addPhrase" = "Add phrase";
 "goldenLabelForm.section.notes" = "Notes";
 "goldenLabelForm.notes" = "Notes";
 "goldenLabelForm.createTitle" = "New Golden Label";
@@ -68,6 +69,7 @@
 "history.title" = "History";
 "history.emptyTitle" = "No verifications yet";
 "history.emptySubtitle" = "Scanned labels will appear here.";
+"history.rowAccessibilityLabel %@ %@ %@" = "%1$@, %2$@, %3$@";
 
 "settings.title" = "Settings";
 "settings.section.appearance" = "Appearance";

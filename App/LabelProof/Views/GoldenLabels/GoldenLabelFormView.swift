@@ -59,6 +59,7 @@ struct GoldenLabelFormView: View {
                         } label: {
                             Image(systemName: "plus.circle.fill")
                         }
+                        .accessibilityLabel(Text("goldenLabelForm.addPhrase"))
                         .accessibilityIdentifier("goldenLabelForm.addPhraseButton")
                     }
                 }
