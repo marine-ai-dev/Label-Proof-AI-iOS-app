@@ -24,11 +24,18 @@ internet connection, no cloud AI.
 - 🎨 **Liquid Glass design** — a polished, project-local SwiftUI design
   layer with Light, Dark, and true-black OLED appearances, plus 5 accent
   colors.
-- 🌍 **Localized** — English and Ukrainian out of the box.
+- 🌍 **Localized** — English and Ukrainian, chosen explicitly on first launch
+  and changeable any time in Settings → Language, with no restart required.
+- 💾 **Backup & Synchronization** — optional automatic backup to your own
+  iCloud account, plus manual export/import through the native Files picker
+  (any provider, including Google Drive/Dropbox if installed) — no
+  LabelProof-operated server.
 - ♿️ **Accessible** — VoiceOver labels, Dynamic Type support, non-color-only
   PASS/FAIL indication, Reduce Motion-safe.
 - 🔒 **Privacy-first** — no account, no login, no analytics, no tracking, no
-  cloud AI, no networking code at all. See [docs/PRIVACY.md](docs/PRIVACY.md).
+  cloud AI, no LabelProof-operated backend. Core verification is entirely
+  on-device; data is stored locally by default. See
+  [docs/PRIVACY.md](docs/PRIVACY.md).
 
 ## 🧱 Architecture
 

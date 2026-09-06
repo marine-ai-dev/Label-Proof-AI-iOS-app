@@ -12,6 +12,8 @@ enum UITestLaunch {
         static let resetState = "UITEST_RESET_STATE"
         static let seedDemoData = "UITEST_SEED_DEMO_DATA"
         static let fixtureScenario = "UITEST_FIXTURE_SCENARIO"
+        static let forceLanguage = "UITEST_FORCE_LANGUAGE"
+        static let showLanguageSelector = "UITEST_SHOW_LANGUAGE_SELECTOR"
     }
 
     /// Matches `LabelProofCore.ScanFixtureScenario.rawValue`.

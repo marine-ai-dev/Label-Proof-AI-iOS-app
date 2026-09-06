@@ -3,12 +3,23 @@
 LabelProof is designed to be privacy-first by construction, not by policy
 alone.
 
+## Summary
+
+Core verification is entirely on-device. Your data is stored locally by
+default. LabelProof has **no developer-operated backend of any kind** — the
+only two ways your data can ever leave this device are both fully optional
+and fully under your control: an automatic backup to your own iCloud
+account, or a manual export to a Files location you explicitly choose. There
+is no LabelProof server, no LabelProof database, and no LabelProof analytics
+anywhere.
+
 ## What LabelProof does NOT do
 
 - No account, no login, no user identity of any kind.
-- No network requests. There is no networking code anywhere in this
-  repository — no `URLSession`, no third-party SDK, no analytics, no crash
-  reporter, no ad SDK.
+- No developer-operated network service of any kind — no LabelProof
+  server, no LabelProof database, no analytics, no crash reporter, no ad
+  SDK, no third-party SDK. Grep the codebase: there is no `URLSession` call
+  anywhere in `App/LabelProof` or `Sources/LabelProofCore`.
 - No cloud OCR or cloud AI inference. All text and barcode recognition uses
   Apple's on-device Vision framework (`VNRecognizeTextRequest`,
   `VNDetectBarcodesRequest`) and VisionKit's `DataScannerViewController`.
@@ -17,14 +28,39 @@ alone.
 - No full images stored. `VerificationRecord`/`VerificationHistoryRecord`
   store only the extracted text lines, decoded barcode payloads, and the
   validation outcome — never the captured photo or camera frame.
+- No Google Drive/Dropbox/etc. API integration of any kind. If you export a
+  backup to one of those through the native Files picker, that's a
+  connection between the Files app and your own account on that service —
+  LabelProof never sees or handles those credentials.
+
+## Backup & Synchronization (optional)
+
+LabelProof offers two independent, user-controlled ways to protect your
+Golden Labels and verification history:
+
+1. **Automatic iCloud Backup** (off by default) — when enabled, LabelProof
+   writes one backup snapshot to your own iCloud account's storage for this
+   app. This is Apple's iCloud infrastructure, not a LabelProof-operated
+   service; LabelProof cannot read this data from any other user's device,
+   and there is no LabelProof database anywhere in this flow.
+2. **Manual Export/Import** — creates a `.labelproofbackup` file (plain,
+   inspectable JSON — see `Sources/LabelProofCore/Backup.swift`) and hands
+   it to the system Files picker, which saves it only to whatever location
+   you explicitly choose (iCloud Drive, On My iPhone, or another Files
+   provider such as Google Drive/Dropbox if installed).
+
+Precise wording used in the app: "Your LabelProof data stays on your device
+unless you choose to back it up. Optional iCloud backups are stored in your
+iCloud account. Manual exports go only to the location you choose in Files.
+LabelProof has no developer-operated backend for your data."
 
 ## Data that stays on-device
 
 | Data | Where it lives | Ever leaves device? |
 |---|---|---|
-| Golden labels (name, expected product name/weight/barcode/phrases/notes) | SwiftData (local app storage) | No |
-| Verification history (status, mismatches, timestamps) | SwiftData (local app storage) | No |
-| Appearance/accent/history-retention settings | `UserDefaults` (local) | No |
+| Golden labels (name, expected product name/weight/barcode/phrases/notes) | SwiftData (local app storage) | Only if you enable iCloud Backup or manually export |
+| Verification history (status, mismatches, timestamps) | SwiftData (local app storage) | Only if you enable iCloud Backup or manually export |
+| Appearance/accent/language/history-retention settings | `UserDefaults` (local) | No — never included in a backup, so restoring one never changes your interface language |
 | Captured camera frame / imported photo bytes | Held in memory only for the duration of one scan's OCR+barcode pass; not persisted | No |
 
 ## Permissions requested
@@ -49,11 +85,15 @@ alone.
 
 ## Audit method
 
-Because there is no networking code in the app, a grep-based audit is
-sufficient and is included as the `secret-scan` job pattern in
-`.github/workflows/ci.yml`; additionally, `docs/LOCAL_QA_HANDOFF.md` includes
-a step to grep the built app for networking symbols/frameworks as a final
-local sanity check before submission.
+Because there is no developer-operated networking code in the app, a
+grep-based audit is sufficient and is included as the `secret-scan` job
+pattern in `.github/workflows/ci.yml`; additionally,
+`docs/LOCAL_QA_HANDOFF.md` includes a step to grep the built app for
+networking symbols/frameworks as a final local sanity check before
+submission. (iCloud Backup, when enabled, legitimately uses Apple's own
+system `FileManager`/iCloud APIs — see `App/LabelProof/Services/
+ICloudBackupStore.swift` — which is Apple-system networking, not a
+LabelProof-operated network service.)
 
 ## Contact / disclosure
 

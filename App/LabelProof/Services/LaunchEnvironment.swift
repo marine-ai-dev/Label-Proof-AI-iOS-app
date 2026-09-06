@@ -14,6 +14,12 @@ import LabelProofCore
 /// - `UITEST_FIXTURE_SCENARIO` = one of `ScanFixtureScenario.rawValue`:
 ///   forces the scan pipeline to use `FixtureLabelScanService` with that
 ///   scenario instead of the real Vision-backed camera/import pipeline.
+/// - `UITEST_ICLOUD_BEHAVIOR` = one of `FakeICloudBackupStore.Behavior.rawValue`:
+///   forces Backup & Synchronization's iCloud path to use a deterministic
+///   `FakeICloudBackupStore` with that behavior instead of the real
+///   ubiquity-container-backed store, so UI tests can exercise every state
+///   (unavailable, write failure, corrupt backup, etc.) without a real
+///   iCloud account.
 enum LaunchEnvironment {
     static var isUITesting: Bool {
         ProcessInfo.processInfo.arguments.contains("UITEST_MODE")
@@ -22,6 +28,28 @@ enum LaunchEnvironment {
     static var forcedFixtureScenario: ScanFixtureScenario? {
         guard let raw = ProcessInfo.processInfo.environment["UITEST_FIXTURE_SCENARIO"] else { return nil }
         return ScanFixtureScenario(rawValue: raw)
+    }
+
+    static var forcedICloudBackupBehavior: FakeICloudBackupStore.Behavior? {
+        guard let raw = ProcessInfo.processInfo.environment["UITEST_ICLOUD_BEHAVIOR"] else { return nil }
+        return FakeICloudBackupStore.Behavior(rawValue: raw)
+    }
+
+    /// `UITEST_FORCE_LANGUAGE` = "en" | "uk": forces `LanguageStore` to that
+    /// language at launch (still bypassing the first-launch selector,
+    /// unless combined with `forceShowLanguageSelector` below).
+    static var forcedLanguage: AppLanguage? {
+        guard let raw = ProcessInfo.processInfo.environment["UITEST_FORCE_LANGUAGE"] else { return nil }
+        return AppLanguage(rawValue: raw)
+    }
+
+    /// `UITEST_SHOW_LANGUAGE_SELECTOR` = "1": forces `LanguageStore` to
+    /// behave as if no language has ever been chosen, so a UI test can
+    /// exercise the first-launch selector itself. Every other existing UI
+    /// test omits this and gets English with no selector shown, exactly as
+    /// before this feature existed.
+    static var forceShowLanguageSelector: Bool {
+        ProcessInfo.processInfo.environment["UITEST_SHOW_LANGUAGE_SELECTOR"] == "1"
     }
 
     static func applyIfNeeded(to container: ModelContainer) {

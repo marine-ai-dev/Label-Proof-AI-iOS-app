@@ -3,6 +3,8 @@ import LabelProofCore
 
 struct HistoryView: View {
     @Environment(\.modelContext) private var modelContext
+    // See HomeView's comment on this same property.
+    @EnvironmentObject private var languageStore: LanguageStore
     @State private var records: [VerificationRecord] = []
 
     var body: some View {
@@ -10,7 +12,7 @@ struct HistoryView: View {
             Group {
                 if records.isEmpty {
                     ContentUnavailableView(
-                        String(localized: "history.emptyTitle"),
+                        L("history.emptyTitle"),
                         systemImage: "clock",
                         description: Text("history.emptySubtitle")
                     )
@@ -36,7 +38,7 @@ struct HistoryView: View {
                     }
                 }
             }
-            .navigationTitle(String(localized: "history.title"))
+            .navigationTitle(L("history.title"))
             .onAppear(perform: reload)
         }
     }
@@ -71,9 +73,9 @@ struct HistoryView: View {
 
     private func statusTitle(for status: VerificationStatus) -> String {
         switch status {
-        case .pass: return String(localized: "result.status.pass")
-        case .fail: return String(localized: "result.status.fail")
-        case .insufficientData: return String(localized: "result.status.insufficientData")
+        case .pass: return L("result.status.pass")
+        case .fail: return L("result.status.fail")
+        case .insufficientData: return L("result.status.insufficientData")
         }
     }
 }

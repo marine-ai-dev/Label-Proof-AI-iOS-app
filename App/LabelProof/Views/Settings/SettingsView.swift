@@ -4,13 +4,38 @@ import LabelProofCore
 struct SettingsView: View {
     @Environment(\.modelContext) private var modelContext
     @EnvironmentObject private var settings: SettingsStore
+    @EnvironmentObject private var languageStore: LanguageStore
     @State private var showingClearHistoryConfirmation = false
     @State private var showingResetDemoConfirmation = false
+    @State private var showingLanguageSheet = false
 
     var body: some View {
         NavigationStack {
             Form {
-                Section(String(localized: "settings.section.appearance")) {
+                Section(L("settings.section.language")) {
+                    Button {
+                        showingLanguageSheet = true
+                    } label: {
+                        HStack {
+                            Text("settings.language")
+                                .foregroundStyle(.primary)
+                            Spacer()
+                            if let language = languageStore.selectedLanguage {
+                                Text("\(language.symbol) \(language.displayName)")
+                                    .foregroundStyle(settings.accent.color)
+                            }
+                            Image(systemName: "chevron.up.chevron.down")
+                                .font(.caption)
+                                .foregroundStyle(settings.accent.color)
+                        }
+                    }
+                    .id(settings.accent)
+                    .accessibilityIdentifier("settings.languageButton")
+                    .accessibilityLabel(Text("settings.language"))
+                    .accessibilityValue(Text(languageStore.selectedLanguage?.displayName ?? ""))
+                }
+
+                Section(L("settings.section.appearance")) {
                     // `.tint` is bound directly on each Picker (not just
                     // inherited from an ancestor's `.tint`/environment) —
                     // SwiftUI's Form/List-hosted Picker renders its trailing
@@ -32,7 +57,7 @@ struct SettingsView: View {
                     // recreate the underlying cell whenever the accent
                     // changes, so every Picker picks up the new tint
                     // immediately, not just the one the user just touched.
-                    Picker(String(localized: "settings.appearance"), selection: $settings.appearance) {
+                    Picker(L("settings.appearance"), selection: $settings.appearance) {
                         ForEach(AppAppearance.allCases) { appearance in
                             Text(appearanceLabel(appearance)).tag(appearance)
                         }
@@ -41,7 +66,7 @@ struct SettingsView: View {
                     .id(settings.accent)
                     .accessibilityIdentifier("settings.appearancePicker")
 
-                    Picker(String(localized: "settings.accent"), selection: $settings.accent) {
+                    Picker(L("settings.accent"), selection: $settings.accent) {
                         ForEach(AppAccent.allCases) { accent in
                             Text(accentLabel(accent)).tag(accent)
                         }
@@ -51,9 +76,16 @@ struct SettingsView: View {
                     .accessibilityIdentifier("settings.accentPicker")
                 }
 
-                Section(String(localized: "settings.section.history")) {
+                Section {
+                    NavigationLink(L("settings.backupSync")) {
+                        BackupSettingsView()
+                    }
+                    .accessibilityIdentifier("settings.backupSyncLink")
+                }
+
+                Section(L("settings.section.history")) {
                     Stepper(
-                        String(localized: "settings.keepHistoryDays \(settings.keepHistoryDays == 0 ? String(localized: "settings.forever") : "\(settings.keepHistoryDays)")"),
+                        L("settings.keepHistoryDays \(settings.keepHistoryDays == 0 ? L("settings.forever") : "\(settings.keepHistoryDays)")"),
                         value: $settings.keepHistoryDays,
                         in: 0...365,
                         step: 30
@@ -65,18 +97,18 @@ struct SettingsView: View {
                     }
                     .accessibilityIdentifier("settings.clearHistoryButton")
                     .confirmationDialog(
-                        String(localized: "settings.clearHistoryConfirmTitle"),
+                        L("settings.clearHistoryConfirmTitle"),
                         isPresented: $showingClearHistoryConfirmation,
                         titleVisibility: .visible
                     ) {
-                        Button(String(localized: "settings.clearHistoryConfirmAction"), role: .destructive) {
+                        Button(L("settings.clearHistoryConfirmAction"), role: .destructive) {
                             VerificationHistoryStore(context: modelContext).clearAll()
                         }
-                        Button(String(localized: "action.cancel"), role: .cancel) {}
+                        Button(L("action.cancel"), role: .cancel) {}
                     }
                 }
 
-                Section(String(localized: "settings.section.demo")) {
+                Section(L("settings.section.demo")) {
                     Button {
                         showingResetDemoConfirmation = true
                     } label: {
@@ -84,25 +116,36 @@ struct SettingsView: View {
                     }
                     .accessibilityIdentifier("settings.resetDemoDataButton")
                     .confirmationDialog(
-                        String(localized: "settings.resetDemoConfirmTitle"),
+                        L("settings.resetDemoConfirmTitle"),
                         isPresented: $showingResetDemoConfirmation,
                         titleVisibility: .visible
                     ) {
-                        Button(String(localized: "settings.resetDemoConfirmAction")) {
+                        Button(L("settings.resetDemoConfirmAction")) {
                             resetDemoData()
                         }
-                        Button(String(localized: "action.cancel"), role: .cancel) {}
+                        Button(L("action.cancel"), role: .cancel) {}
                     }
                 }
 
                 Section {
-                    NavigationLink(String(localized: "settings.about")) {
+                    NavigationLink(L("settings.about")) {
                         AboutView()
                     }
                     .accessibilityIdentifier("settings.aboutLink")
                 }
             }
-            .navigationTitle(String(localized: "settings.title"))
+            .navigationTitle(L("settings.title"))
+            .sheet(isPresented: $showingLanguageSheet) {
+                NavigationStack {
+                    LanguageSelectionView(onDismiss: { showingLanguageSheet = false })
+                        .navigationTitle(L("settings.language"))
+                        .toolbar {
+                            ToolbarItem(placement: .cancellationAction) {
+                                Button(L("action.done")) { showingLanguageSheet = false }
+                            }
+                        }
+                }
+            }
         }
     }
 
@@ -116,20 +159,20 @@ struct SettingsView: View {
 
     private func appearanceLabel(_ appearance: AppAppearance) -> String {
         switch appearance {
-        case .system: return String(localized: "settings.appearance.system")
-        case .light: return String(localized: "settings.appearance.light")
-        case .dark: return String(localized: "settings.appearance.dark")
-        case .black: return String(localized: "settings.appearance.black")
+        case .system: return L("settings.appearance.system")
+        case .light: return L("settings.appearance.light")
+        case .dark: return L("settings.appearance.dark")
+        case .black: return L("settings.appearance.black")
         }
     }
 
     private func accentLabel(_ accent: AppAccent) -> String {
         switch accent {
-        case .teal: return String(localized: "settings.accent.teal")
-        case .indigo: return String(localized: "settings.accent.indigo")
-        case .coral: return String(localized: "settings.accent.coral")
-        case .mint: return String(localized: "settings.accent.mint")
-        case .amber: return String(localized: "settings.accent.amber")
+        case .teal: return L("settings.accent.teal")
+        case .indigo: return L("settings.accent.indigo")
+        case .coral: return L("settings.accent.coral")
+        case .mint: return L("settings.accent.mint")
+        case .amber: return L("settings.accent.amber")
         }
     }
 }

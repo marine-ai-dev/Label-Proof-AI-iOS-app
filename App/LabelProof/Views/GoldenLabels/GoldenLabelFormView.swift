@@ -9,6 +9,8 @@ struct GoldenLabelFormView: View {
 
     @Environment(\.modelContext) private var modelContext
     @Environment(\.dismiss) private var dismiss
+    // See HomeView's comment on this same property.
+    @EnvironmentObject private var languageStore: LanguageStore
 
     let mode: Mode
 
@@ -28,29 +30,29 @@ struct GoldenLabelFormView: View {
     var body: some View {
         NavigationStack {
             Form {
-                Section(String(localized: "goldenLabelForm.section.identity")) {
-                    TextField(String(localized: "goldenLabelForm.name"), text: $name)
+                Section(L("goldenLabelForm.section.identity")) {
+                    TextField(L("goldenLabelForm.name"), text: $name)
                         .accessibilityIdentifier("goldenLabelForm.name")
-                    TextField(String(localized: "goldenLabelForm.expectedProductName"), text: $expectedProductName)
+                    TextField(L("goldenLabelForm.expectedProductName"), text: $expectedProductName)
                         .accessibilityIdentifier("goldenLabelForm.expectedProductName")
                 }
 
-                Section(String(localized: "goldenLabelForm.section.values")) {
-                    TextField(String(localized: "goldenLabelForm.expectedWeight"), text: $expectedWeight)
+                Section(L("goldenLabelForm.section.values")) {
+                    TextField(L("goldenLabelForm.expectedWeight"), text: $expectedWeight)
                         .accessibilityIdentifier("goldenLabelForm.expectedWeight")
-                    TextField(String(localized: "goldenLabelForm.expectedBarcode"), text: $expectedBarcode)
+                    TextField(L("goldenLabelForm.expectedBarcode"), text: $expectedBarcode)
                         .keyboardType(.numbersAndPunctuation)
                         .accessibilityIdentifier("goldenLabelForm.expectedBarcode")
                 }
 
-                Section(String(localized: "goldenLabelForm.section.requiredPhrases")) {
+                Section(L("goldenLabelForm.section.requiredPhrases")) {
                     ForEach(requiredPhrases.indices, id: \.self) { index in
                         Text(requiredPhrases[index])
                     }
                     .onDelete { requiredPhrases.remove(atOffsets: $0) }
 
                     HStack {
-                        TextField(String(localized: "goldenLabelForm.newPhrase"), text: $newPhrase)
+                        TextField(L("goldenLabelForm.newPhrase"), text: $newPhrase)
                             .accessibilityIdentifier("goldenLabelForm.newPhraseField")
                         Button {
                             guard !newPhrase.trimmingCharacters(in: .whitespaces).isEmpty else { return }
@@ -64,18 +66,18 @@ struct GoldenLabelFormView: View {
                     }
                 }
 
-                Section(String(localized: "goldenLabelForm.section.notes")) {
-                    TextField(String(localized: "goldenLabelForm.notes"), text: $notes, axis: .vertical)
+                Section(L("goldenLabelForm.section.notes")) {
+                    TextField(L("goldenLabelForm.notes"), text: $notes, axis: .vertical)
                         .lineLimit(2...5)
                 }
             }
-            .navigationTitle(isEditing ? String(localized: "goldenLabelForm.editTitle") : String(localized: "goldenLabelForm.createTitle"))
+            .navigationTitle(isEditing ? L("goldenLabelForm.editTitle") : L("goldenLabelForm.createTitle"))
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
-                    Button(String(localized: "action.cancel")) { dismiss() }
+                    Button(L("action.cancel")) { dismiss() }
                 }
                 ToolbarItem(placement: .confirmationAction) {
-                    Button(String(localized: "action.save"), action: save)
+                    Button(L("action.save"), action: save)
                         .disabled(name.trimmingCharacters(in: .whitespaces).isEmpty)
                         .accessibilityIdentifier("goldenLabelForm.saveButton")
                 }

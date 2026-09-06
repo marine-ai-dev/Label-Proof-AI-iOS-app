@@ -3,6 +3,8 @@ import LabelProofCore
 
 struct GoldenLabelsListView: View {
     @Environment(\.modelContext) private var modelContext
+    // See HomeView's comment on this same property.
+    @EnvironmentObject private var languageStore: LanguageStore
     @State private var goldenLabels: [GoldenLabel] = []
     @State private var showingCreate = false
     @State private var editingGoldenLabel: GoldenLabel?
@@ -12,7 +14,7 @@ struct GoldenLabelsListView: View {
             Group {
                 if goldenLabels.isEmpty {
                     ContentUnavailableView(
-                        String(localized: "goldenLabels.emptyTitle"),
+                        L("goldenLabels.emptyTitle"),
                         systemImage: "checkmark.seal",
                         description: Text("goldenLabels.emptySubtitle")
                     )
@@ -36,13 +38,13 @@ struct GoldenLabelsListView: View {
                     }
                 }
             }
-            .navigationTitle(String(localized: "goldenLabels.title"))
+            .navigationTitle(L("goldenLabels.title"))
             .toolbar {
                 ToolbarItem(placement: .primaryAction) {
                     Button {
                         showingCreate = true
                     } label: {
-                        Label(String(localized: "goldenLabels.add"), systemImage: "plus")
+                        Label(L("goldenLabels.add"), systemImage: "plus")
                     }
                     .accessibilityIdentifier("goldenLabels.addButton")
                 }

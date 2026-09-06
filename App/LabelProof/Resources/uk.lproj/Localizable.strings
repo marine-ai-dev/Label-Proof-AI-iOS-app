@@ -35,6 +35,7 @@
 
 "action.cancel" = "Скасувати";
 "action.save" = "Зберегти";
+"action.done" = "Готово";
 
 "scanner.title" = "Сканування етикетки";
 "scanner.targetLabel %@" = "Перевірка відносно: %@";
@@ -71,6 +72,9 @@
 "history.rowAccessibilityLabel %@ %@ %@" = "%1$@, %2$@, %3$@";
 
 "settings.title" = "Налаштування";
+"settings.section.language" = "Мова";
+"settings.language" = "Мова";
+"settings.backupSync" = "Резервне копіювання й синхронізація";
 "settings.section.appearance" = "Вигляд";
 "settings.appearance" = "Вигляд";
 "settings.appearance.system" = "Системний";
@@ -99,10 +103,51 @@
 "about.appName" = "LabelProof";
 "about.tagline" = "Перевірка етикеток упаковки на пристрої.";
 "about.privacyTitle" = "Приватність";
-"about.privacyBody" = "LabelProof ніколи не передає дані за межі вашого пристрою. Без облікового запису, без входу, без аналітики, без хмарного розпізнавання. Усе сканування, розпізнавання та зберігання відбувається локально за допомогою фреймворків Apple Vision і SwiftData.";
+"about.privacyBody" = "Перевірка повністю відбувається на пристрої: без облікового запису, без входу, без аналітики, без хмарного розпізнавання. Ваші дані за замовчуванням зберігаються локально. Необов'язкові резервні копії використовують ваш власний обліковий запис iCloud або місце у Файлах, яке ви самі оберете — ніколи сервер LabelProof.";
 "about.howItWorksTitle" = "Як це працює";
 "about.howItWorksBody" = "Створіть еталонну етикетку з очікуваною назвою товару, вагою, штрих-кодом та обов'язковими фразами. Відскануйте упаковку — LabelProof порівняє розпізнаний текст і штрих-код з еталонною етикеткою за детермінованими правилами, без вгадувань ШІ.";
 "about.limitationsTitle" = "Обмеження";
 "about.limitationsBody" = "Якість розпізнавання залежить від освітлення, фокусу та чіткості друку. Якщо розпізнавання не дає придатних даних, LabelProof повідомляє «Недостатньо даних», а не вгадує результат.";
 "about.openSourceTitle" = "Відкритий код";
 "about.openSourceBody" = "LabelProof — безкоштовний застосунок із відкритим кодом. Посилання на репозиторій та ліцензію дивіться у README проєкту.";
+"about.deletionWarningTitle" = "Перш ніж видалити LabelProof";
+"about.deletionWarningBody" = "Видалення LabelProof видаляє дані, що зберігаються локально на цьому iPhone. Експортуйте резервну копію або увімкніть резервне копіювання в iCloud, якщо хочете відновити дані пізніше.";
+
+/* Language selection */
+"language.chooseTitle.uk" = "Оберіть мову";
+"language.chooseTitle.en" = "Choose your language";
+"language.recommended" = "Рекомендовано";
+
+/* Backup & Synchronization */
+"backup.section.icloud" = "Резервне копіювання в iCloud";
+"backup.automaticICloud" = "Автоматичне резервне копіювання в iCloud";
+"backup.icloud.explanation" = "Якщо увімкнено, LabelProof зберігає резервну копію у вашому обліковому записі iCloud. Ваші дані LabelProof залишаються на пристрої, доки ви самі не оберете створити резервну копію. LabelProof не має власного серверного сховища для ваших даних.";
+"backup.status.title" = "Стан";
+"backup.status.never" = "Ніколи";
+"backup.status.unavailable" = "iCloud недоступний";
+"backup.status.lastBackup %@" = "Остання копія: %@";
+"backup.syncNow" = "Синхронізувати зараз";
+"backup.restoreFromICloud" = "Відновити з резервної копії iCloud";
+"backup.restoreFromICloud.confirmTitle" = "Відновити з резервної копії iCloud? Це замінить усі поточні еталонні етикетки та історію на цьому пристрої.";
+"backup.restoreFromICloud.success" = "Відновлено з резервної копії iCloud.";
+"backup.restoreFromICloud.failed" = "Не вдалося відновити з резервної копії iCloud.";
+"backup.sync.success" = "Резервну копію оновлено.";
+"backup.sync.failed" = "Не вдалося з'єднатися з iCloud. Локальні дані не постраждали.";
+"backup.section.manual" = "Ручне резервне копіювання";
+"backup.manual.explanation" = "Експорт зберігається лише в те місце Файлів, яке ви оберете — включно з iCloud Drive, «На цьому iPhone» або іншим провайдером Файлів, як-от Google Drive чи Dropbox, якщо він встановлений. LabelProof не з'єднується з цими сервісами напряму.";
+"backup.exportBackup" = "Експортувати резервну копію";
+"backup.importBackup" = "Імпортувати резервну копію";
+"backup.export.failed %@" = "Помилка експорту: %@";
+"backup.import.failed %@" = "Помилка імпорту: %@";
+"backup.import.invalidFile" = "Цей файл не є дійсною резервною копією LabelProof.";
+"backup.import.unsupportedVersion" = "Цю резервну копію створено новішою версією LabelProof, яку ця версія прочитати не може.";
+"backup.import.restoreFailed" = "Не вдалося відновити дані. Наявні дані не змінено.";
+"backup.import.confirmTitle" = "Замінити поточні дані цією резервною копією?";
+"backup.import.confirmAction" = "Замінити дані";
+"backup.import.summary %@ %@ %@" = "Резервна копія від: %1$@\nЕталонні етикетки: %2$@\nЗаписів історії: %3$@";
+"backup.section.cloudData" = "Дані в хмарі";
+"backup.deleteICloudBackup" = "Видалити резервну копію iCloud";
+"backup.deleteICloudBackup.confirmTitle" = "Видалити вашу резервну копію iCloud? Це не вплине на дані, що зберігаються локально на цьому пристрої.";
+"backup.deleteICloudBackup.confirmAction" = "Видалити копію";
+"backup.deleteICloudBackup.automaticStillOnWarning" = "Автоматичне резервне копіювання в iCloud зараз увімкнено. Якщо ви видалите цю копію, LabelProof може створити нову після зміни ваших даних.";
+"backup.deleteICloudBackup.failed" = "Не вдалося видалити резервну копію iCloud.";

@@ -36,6 +36,7 @@
 
 "action.cancel" = "Cancel";
 "action.save" = "Save";
+"action.done" = "Done";
 
 "scanner.title" = "Scan Label";
 "scanner.targetLabel %@" = "Verifying against: %@";
@@ -72,6 +73,9 @@
 "history.rowAccessibilityLabel %@ %@ %@" = "%1$@, %2$@, %3$@";
 
 "settings.title" = "Settings";
+"settings.section.language" = "Language";
+"settings.language" = "Language";
+"settings.backupSync" = "Backup & Synchronization";
 "settings.section.appearance" = "Appearance";
 "settings.appearance" = "Appearance";
 "settings.appearance.system" = "System";
@@ -100,10 +104,51 @@
 "about.appName" = "LabelProof";
 "about.tagline" = "On-device packaging label verifier.";
 "about.privacyTitle" = "Privacy";
-"about.privacyBody" = "LabelProof never sends data off your device. No account, no login, no analytics, no cloud OCR. All scanning, recognition, and storage happen locally using Apple's Vision and SwiftData frameworks.";
+"about.privacyBody" = "Core verification is entirely on-device: no account, no login, no analytics, no cloud OCR. Your data is stored locally by default. Optional backups use your own iCloud account or a Files location you explicitly choose — never a LabelProof-operated server.";
 "about.howItWorksTitle" = "How it works";
 "about.howItWorksBody" = "Create a golden label with the expected product name, weight, barcode, and required phrases. Scan a package, and LabelProof compares the recognized text and barcode against your golden label using deterministic rules — never AI guessing.";
 "about.limitationsTitle" = "Limitations";
 "about.limitationsBody" = "Recognition quality depends on lighting, focus, and print clarity. When recognition doesn't produce usable text or barcode data, LabelProof reports \"Insufficient data\" rather than guessing at a pass or fail.";
 "about.openSourceTitle" = "Open source";
 "about.openSourceBody" = "LabelProof is free and open-source. See the project README for the repository link and license.";
+"about.deletionWarningTitle" = "Before you delete LabelProof";
+"about.deletionWarningBody" = "Deleting LabelProof removes data stored locally on this iPhone. Export a backup or enable iCloud Backup if you want to restore your data later.";
+
+/* Language selection */
+"language.chooseTitle.uk" = "Оберіть мову";
+"language.chooseTitle.en" = "Choose your language";
+"language.recommended" = "Recommended";
+
+/* Backup & Synchronization */
+"backup.section.icloud" = "iCloud Backup";
+"backup.automaticICloud" = "Automatic iCloud Backup";
+"backup.icloud.explanation" = "If enabled, LabelProof stores a backup in your iCloud account. Your LabelProof data stays on your device unless you choose to back it up. LabelProof has no developer-operated backend for your data.";
+"backup.status.title" = "Status";
+"backup.status.never" = "Never";
+"backup.status.unavailable" = "iCloud unavailable";
+"backup.status.lastBackup %@" = "Last backup: %@";
+"backup.syncNow" = "Sync Now";
+"backup.restoreFromICloud" = "Restore from iCloud Backup";
+"backup.restoreFromICloud.confirmTitle" = "Restore from your iCloud backup? This will replace all current Golden Labels and History on this device.";
+"backup.restoreFromICloud.success" = "Restored from iCloud backup.";
+"backup.restoreFromICloud.failed" = "Couldn't restore from the iCloud backup.";
+"backup.sync.success" = "Backup up to date.";
+"backup.sync.failed" = "Couldn't reach iCloud. Your local data is unaffected.";
+"backup.section.manual" = "Manual Backup";
+"backup.manual.explanation" = "Exports are saved only to the Files location you choose — including iCloud Drive, On My iPhone, or another Files provider such as Google Drive or Dropbox if installed. LabelProof itself never connects to those services directly.";
+"backup.exportBackup" = "Export Backup";
+"backup.importBackup" = "Import Backup";
+"backup.export.failed %@" = "Export failed: %@";
+"backup.import.failed %@" = "Import failed: %@";
+"backup.import.invalidFile" = "That file isn't a valid LabelProof backup.";
+"backup.import.unsupportedVersion" = "That backup was made by a newer version of LabelProof and can't be read by this version.";
+"backup.import.restoreFailed" = "Restore failed. Your existing data was not changed.";
+"backup.import.confirmTitle" = "Replace current data with this backup?";
+"backup.import.confirmAction" = "Replace Data";
+"backup.import.summary %@ %@ %@" = "Backup from: %1$@\nGolden Labels: %2$@\nHistory Records: %3$@";
+"backup.section.cloudData" = "Cloud Data";
+"backup.deleteICloudBackup" = "Delete iCloud Backup";
+"backup.deleteICloudBackup.confirmTitle" = "Delete your iCloud backup? This does not affect data stored locally on this device.";
+"backup.deleteICloudBackup.confirmAction" = "Delete Backup";
+"backup.deleteICloudBackup.automaticStillOnWarning" = "Automatic iCloud Backup is currently on. If you delete this backup, LabelProof may create a new backup after your data changes.";
+"backup.deleteICloudBackup.failed" = "Couldn't delete the iCloud backup.";

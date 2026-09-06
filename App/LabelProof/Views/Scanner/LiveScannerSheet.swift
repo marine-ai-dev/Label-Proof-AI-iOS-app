@@ -9,6 +9,8 @@ import LabelProofCore
 /// starts scanning; a denial surfaces through `onError` (see
 /// `DataScannerRepresentable.Coordinator.becameUnavailableWithError`).
 struct LiveScannerSheet: View {
+    // See HomeView's comment on this same property.
+    @EnvironmentObject private var languageStore: LanguageStore
     let onUseScan: (_ textLines: [String], _ barcodes: [LabelProofCore.BarcodeObservation]) -> Void
     let onError: (String) -> Void
     let onCancel: () -> Void
@@ -35,7 +37,7 @@ struct LiveScannerSheet: View {
             .accessibilityIdentifier("scanner.liveCameraView")
 
             VStack(spacing: AppTheme.Spacing.sm) {
-                Text(hasRecognizedSomething ? String(localized: "scanner.live.readyToUse") : String(localized: "scanner.live.pointAtLabel"))
+                Text(hasRecognizedSomething ? L("scanner.live.readyToUse") : L("scanner.live.pointAtLabel"))
                     .font(.subheadline.weight(.semibold))
                     .padding(.horizontal, AppTheme.Spacing.md)
                     .padding(.vertical, AppTheme.Spacing.xs)
@@ -43,12 +45,12 @@ struct LiveScannerSheet: View {
                     .accessibilityIdentifier("scanner.live.statusText")
 
                 HStack(spacing: AppTheme.Spacing.md) {
-                    Button(String(localized: "action.cancel"), role: .cancel) {
+                    Button(L("action.cancel"), role: .cancel) {
                         onCancel()
                     }
                     .buttonStyle(.bordered)
 
-                    Button(String(localized: "scanner.live.useScan")) {
+                    Button(L("scanner.live.useScan")) {
                         onUseScan(textLines, barcodes)
                     }
                     .buttonStyle(.borderedProminent)

@@ -4,6 +4,13 @@ import LabelProofCore
 
 struct HomeView: View {
     @Environment(\.modelContext) private var modelContext
+    // Subscribes this view to language changes so its `L(...)`-computed
+    // strings (which SwiftUI cannot see as a dependency on their own,
+    // unlike `Text("key")` + `.environment(\.locale, ...)`) actually
+    // re-render when the user switches language while this tab isn't the
+    // one they changed it from — TabView keeps every tab's view alive, so
+    // without this subscription this view's body simply never reruns.
+    @EnvironmentObject private var languageStore: LanguageStore
     @State private var goldenLabels: [GoldenLabel] = []
     @State private var selectedGoldenLabel: GoldenLabel?
 
@@ -56,7 +63,7 @@ struct HomeView: View {
                 }
                 .padding()
             }
-            .navigationTitle(String(localized: "home.title"))
+            .navigationTitle(L("home.title"))
             .background(homeBackground)
             .onAppear(perform: reload)
             .sheet(item: $selectedGoldenLabel) { goldenLabel in

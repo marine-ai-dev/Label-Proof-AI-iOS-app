@@ -2,6 +2,10 @@ import SwiftUI
 import LabelProofCore
 
 struct ResultView: View {
+    // See HomeView's comment on this same property: required so `L(...)`
+    // strings actually refresh when language changes while this view is
+    // kept alive but not currently visible.
+    @EnvironmentObject private var languageStore: LanguageStore
     let goldenLabel: GoldenLabel
     let scan: ExtractedLabelData
     let result: ValidationResult
@@ -24,7 +28,7 @@ struct ResultView: View {
                 GlassCard {
                     VStack(alignment: .leading, spacing: AppTheme.Spacing.xxs) {
                         Text("result.rawScanTitle").font(.subheadline.weight(.semibold))
-                        Text(scan.rawTextLines.isEmpty ? String(localized: "result.noTextRecognized") : scan.rawTextLines.joined(separator: "\n"))
+                        Text(scan.rawTextLines.isEmpty ? L("result.noTextRecognized") : scan.rawTextLines.joined(separator: "\n"))
                             .font(.footnote)
                             .foregroundStyle(.secondary)
                     }
@@ -33,7 +37,7 @@ struct ResultView: View {
             }
             .padding()
         }
-        .navigationTitle(String(localized: "result.title"))
+        .navigationTitle(L("result.title"))
         .accessibilityIdentifier("result.screen")
     }
 
@@ -79,9 +83,9 @@ struct ResultView: View {
 
     private var statusTitle: String {
         switch result.status {
-        case .pass: return String(localized: "result.status.pass")
-        case .fail: return String(localized: "result.status.fail")
-        case .insufficientData: return String(localized: "result.status.insufficientData")
+        case .pass: return L("result.status.pass")
+        case .fail: return L("result.status.fail")
+        case .insufficientData: return L("result.status.insufficientData")
         }
     }
 }
@@ -96,7 +100,7 @@ private struct MismatchRow: View {
                     .font(.subheadline.weight(.semibold))
                 Text("result.expected \(mismatch.expected)")
                     .font(.caption)
-                Text("result.actual \(mismatch.actual.isEmpty ? String(localized: "result.notFound") : mismatch.actual)")
+                Text("result.actual \(mismatch.actual.isEmpty ? L("result.notFound") : mismatch.actual)")
                     .font(.caption)
                     .foregroundStyle(.secondary)
             }
@@ -108,10 +112,10 @@ private struct MismatchRow: View {
 
     private var fieldLabel: String {
         switch mismatch.field {
-        case .productName: return String(localized: "result.field.productName")
-        case .weight: return String(localized: "result.field.weight")
-        case .barcode: return String(localized: "result.field.barcode")
-        case .requiredPhrase: return String(localized: "result.field.requiredPhrase")
+        case .productName: return L("result.field.productName")
+        case .weight: return L("result.field.weight")
+        case .barcode: return L("result.field.barcode")
+        case .requiredPhrase: return L("result.field.requiredPhrase")
         }
     }
 }

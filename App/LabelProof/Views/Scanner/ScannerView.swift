@@ -11,6 +11,8 @@ import LabelProofCore
 struct ScannerView: View {
     @Environment(\.modelContext) private var modelContext
     @Environment(\.dismiss) private var dismiss
+    // See HomeView's comment on this same property.
+    @EnvironmentObject private var languageStore: LanguageStore
 
     let goldenLabel: GoldenLabel
 
@@ -43,7 +45,7 @@ struct ScannerView: View {
                     Button {
                         showingLiveScanner = true
                     } label: {
-                        Label(String(localized: "scanner.scanWithCamera"), systemImage: "camera.viewfinder")
+                        Label(L("scanner.scanWithCamera"), systemImage: "camera.viewfinder")
                             .frame(maxWidth: .infinity)
                             .padding()
                     }
@@ -57,7 +59,7 @@ struct ScannerView: View {
                 #endif
 
                 PhotosPicker(selection: $photoItem, matching: .images) {
-                    Label(String(localized: "scanner.importImage"), systemImage: "photo.on.rectangle")
+                    Label(L("scanner.importImage"), systemImage: "photo.on.rectangle")
                         .frame(maxWidth: .infinity)
                         .padding()
                 }
@@ -65,7 +67,7 @@ struct ScannerView: View {
                 .accessibilityIdentifier("scanner.importImageButton")
 
                 if isProcessing {
-                    ProgressView(String(localized: "scanner.processing"))
+                    ProgressView(L("scanner.processing"))
                         .accessibilityIdentifier("scanner.processingIndicator")
                 }
 
@@ -78,10 +80,10 @@ struct ScannerView: View {
                 Spacer()
             }
             .padding()
-            .navigationTitle(String(localized: "scanner.title"))
+            .navigationTitle(L("scanner.title"))
             .toolbar {
                 ToolbarItem(placement: .cancellationAction) {
-                    Button(String(localized: "action.cancel")) { dismiss() }
+                    Button(L("action.cancel")) { dismiss() }
                 }
             }
             .onChange(of: photoItem) { _, newValue in
@@ -129,12 +131,12 @@ struct ScannerView: View {
     private func handlePickedPhoto(_ item: PhotosPickerItem) async {
         do {
             guard let data = try await item.loadTransferable(type: Data.self) else {
-                errorMessage = String(localized: "scanner.errorLoadingImage")
+                errorMessage = L("scanner.errorLoadingImage")
                 return
             }
             await runScan(imageData: data, source: .importedImage)
         } catch {
-            errorMessage = String(localized: "scanner.errorLoadingImage")
+            errorMessage = L("scanner.errorLoadingImage")
         }
     }
 
@@ -158,7 +160,7 @@ struct ScannerView: View {
             lastScan = scan
             validationResult = result
         } catch {
-            errorMessage = String(localized: "scanner.errorScanFailed")
+            errorMessage = L("scanner.errorScanFailed")
         }
     }
 }
