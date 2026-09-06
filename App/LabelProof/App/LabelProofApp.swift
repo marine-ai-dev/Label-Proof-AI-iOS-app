@@ -16,8 +16,14 @@ struct LabelProofApp: App {
 
     var body: some Scene {
         WindowGroup {
+            // RootTabView applies the live, observed accent tint itself via
+            // `.appThemeRoot(theme)` — do not also apply a static tint here.
+            // A second, non-reactive `.tint(AppTheme.shared.accent)` at this
+            // level previously caused some system-rendered chrome (Picker
+            // disclosure values/chevrons) to keep showing the default accent
+            // after the user changed it in Settings, since it froze that
+            // outer tint at launch time instead of observing `SettingsStore`.
             RootTabView()
-                .tint(AppTheme.shared.accent)
         }
         .modelContainer(modelContainer)
     }
